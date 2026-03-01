@@ -4,15 +4,17 @@ blazingly fast and extremely light-weighted, it also only have 8 keywords
 to remember!
 
 ## Keywords
-- __'#':__    does nothing
-- __'!':__    create task that check for error and stop the script if found error
-- __'@':__    create task that check for error
-- __'$':__    create task that check for error without stopping the script
-- __'%':__    create task that doesn't check for any error
-- __'^':__    create task that only run if there is any error inside the previous task
-- __'/':__    create task that only run if there isn't any error inside the previous task
-- __':':__    run command that will return error if found
-- __'-':__    run command that won't return any error
+```
+'#':    does nothing
+'!':    create task that check for error and stop the script if found error
+'@':    create task that check for error
+'$':    create task that check for error without stopping the script
+'%':    create task that doesn't check for any error
+'^':    create task that only run if there is any error inside the previous task
+'/':    create task that only run if there isn't any error inside the previous task
+':':    run command that will return error if found
+'-':    run command that won't return any error
+```
 
 ## Safety
 magnet is considered to be unsafe build language, cause it can cause fork bomb
