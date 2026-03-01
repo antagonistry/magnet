@@ -64,7 +64,7 @@ void parse(char *ptr, int len) {
       {
         case 0:
           fputs(ptr, stderr);
-          puts(" >> not inside task");
+          fputs(" >> not inside task\n", stderr);
           fclose(stream);
           exit(EXIT_FAILURE);
         case 1:
@@ -84,7 +84,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -111,7 +111,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              puts(" >> command too long\n");
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -138,7 +138,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -158,7 +158,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -182,37 +182,37 @@ void parse(char *ptr, int len) {
               break;
             case 1:
               fputs(cmd, stderr);
-              puts(" >> exit failure");
+              fputs(" >> execution failed\n", stderr);
               fclose(stream);
               exit(ret);
               break;
             case 127:
               fputs(cmd, stderr);
-              puts(" >> command not found");
+              fputs(" >> command not found\n", stderr);
               fclose(stream);
               exit(ret);
               break;
             case 130:
               fputs(cmd, stderr);
-              puts(" >> interrupt");
+              fputs(" >> interrupted\n", stderr);
               fclose(stream);
               exit(ret);
               break;
             case 139:
               fputs(cmd, stderr);
-              puts(" >> segmentation fault");
+              fputs(" >> invalid memory access\n", stderr);
               fclose(stream);
               exit(ret);
               break;
             case 32512:
               fputs(cmd, stderr);
-              puts(" >> force quit");
+              fputs(" >> force quit\n", stderr);
               fclose(stream);
               exit(ret);
               break;
             default:
               fputs(cmd, stderr);
-              puts(" >> other error");
+              fputs(" >> other error\n", stderr);
               fclose(stream);
               exit(ret);
               break;
@@ -226,29 +226,29 @@ void parse(char *ptr, int len) {
               break;
             case 1:
               fputs(cmd, stderr);
-              puts(" >> exit failure");
+              fputs(" >> execution failed\n", stderr);
               break;
             case 127:
               fputs(cmd, stderr);
-              puts(" >> command not found");
+              fputs(" >> command not found\n", stderr);
               break;
             case 130:
               fputs(cmd, stderr);
-              puts(" >> interrupt");
+              fputs(" >> interrupted\n", stderr);
               break;
             case 139:
               fputs(cmd, stderr);
-              puts(" >> segfault");
+              fputs(" >> invalid memory access\n", stderr);
               break;
             case 32512:
               fputs(cmd, stderr);
-              puts(" >> force quit");
+              fputs(" >> force quit\n", stderr);
               fclose(stream);
               exit(ret);
               break;
             default:
               fputs(cmd, stderr);
-              puts(" >> other error");
+              fputs(" >> other error\n", stderr);
               break;
           }
 
@@ -273,7 +273,7 @@ void parse(char *ptr, int len) {
       {
         case 0:
           fputs(ptr, stderr);
-          puts(" >> not inside task");
+          fputs(" >> not inside task\n", stderr);
           fclose(stream);
           exit(EXIT_FAILURE);
         case 1:
@@ -293,7 +293,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -321,7 +321,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -349,7 +349,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -370,7 +370,7 @@ void parse(char *ptr, int len) {
           {
             case sizeof(cmd):
               fputs(ptr, stderr);
-              puts(" >> command too long");
+              fputs(" >> command too long\n", stderr);
               fclose(stream);
               exit(EXIT_FAILURE);
               break;
@@ -387,7 +387,7 @@ void parse(char *ptr, int len) {
       {
         case 32512:
           fputs(cmd, stderr);
-          puts(" >> force quit");
+          fputs(" >> force quit\n", stderr);
           fclose(stream);
           exit(ret);
           break;
@@ -423,7 +423,7 @@ void parse(char *ptr, int len) {
       break;
     default:
       fputs(ptr, stderr);
-      puts(" >> unknown command");
+      fputs(" >> unknown command\n", stderr);
       fclose(stream);
       exit(EXIT_FAILURE);
       return;
@@ -440,7 +440,11 @@ int main(int argc, char **argv) {
     stream = fopen(*argv, "rb");
 
     if (!stream)
-    { continue; }
+    {
+      fputs(*argv, stderr);
+      fputs(" >> file not found\n", stderr);
+      return EXIT_FAILURE;
+    }
 
     while (fgets(line, sizeof(line), stream))
     {
